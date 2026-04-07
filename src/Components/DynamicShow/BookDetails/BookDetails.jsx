@@ -45,21 +45,21 @@ const BookDetails = () => {
             ))}
           </div>
           <div className="grid gap-3 text-gray-600">
-            <p>
+            <p className="flex justify-between">
               <span className="font-semibold text-[#131313]">Number of Pages:</span>
-              <span className="ml-[6%]">{totalPages}</span>
+              <span>{totalPages}</span>
             </p>
-            <p>
+            <p className="flex justify-between">
               <span className="font-semibold text-[#131313]">Publisher:</span>
-              <span className="ml-[11%]">{publisher}</span>
+              <span>{publisher}</span>
             </p>
-            <p>
+            <p className="flex justify-between">
               <span className="font-semibold text-[#131313]">Year of Publishing:</span>
-              <span className="ml-[5%]">{yearOfPublishing}</span>
+              <spa>{yearOfPublishing}</spa>
             </p>
-            <p>
+            <p className="flex justify-between">
               <span className="font-semibold text-[#131313]">Rating:</span>
-              <span className="ml-[13%]">{rating}</span>
+              <span>{rating}</span>
             </p>
           </div>
           <div className="flex gap-4">
