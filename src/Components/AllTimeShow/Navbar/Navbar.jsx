@@ -40,7 +40,7 @@ const Navbar = () => {
               </li>
               <li className="font-semibold">
                 <NavLink
-                  to="/books"
+                  to='/listedbooks'
                   className={({ isActive }) =>
                     isActive && "text-green-500 border border-green-500"
                   }
@@ -76,7 +76,7 @@ const Navbar = () => {
             </li>
             <li className="font-semibold mr-4">
               <NavLink
-                to="/books"
+                to="/listedbooks"
                 className={({ isActive }) =>
                   isActive && "text-green-500 border border-green-500"
                 }

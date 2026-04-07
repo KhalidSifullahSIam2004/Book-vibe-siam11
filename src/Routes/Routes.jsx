@@ -4,6 +4,7 @@ import HomePage from "../Components/DynamicShow/HomePage/HomePage";
 import Books from "../Components/DynamicShow/Books/Books";
 import ErrorPage from "../Components/DynamicShow/ErrorPage/ErrorPage";
 import BookDetails from "../Components/DynamicShow/BookDetails/BookDetails";
+import ListedBooks from "../Components/DynamicShow/ListedBooks/ListedBooks";
 
 export const router = createBrowserRouter([
   {
@@ -23,6 +24,10 @@ export const router = createBrowserRouter([
         path: "/books/:id",
         loader:  () => fetch("/booksData.json"),
         element: <BookDetails />,
+      },
+      {
+        path: '/listedbooks',
+        element: <ListedBooks/>
       }
     ]
   }

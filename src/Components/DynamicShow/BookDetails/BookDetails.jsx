@@ -1,16 +1,14 @@
-import { Link, useLoaderData, useParams } from "react-router";
-import { FaRegStar } from "@react-icons/all-files/fa/FaRegStar";
-
+import { use } from "react";
+import { useLoaderData, useParams } from "react-router";
+import { BookContext } from "../../../Context/Context";
 
 const BookDetails = () => {
-
   const params = useParams();
-
   const booksData = useLoaderData();
+  const findBook = booksData.find((bookData) => bookData.bookId === Number(params.id));
+  const {handleMarkAsRead, handleWishList} = use(BookContext);
 
-  const findBook = booksData.find(bookData => bookData.bookId === Number(params.id));
-
-  const {bookName, author, image, review, totalPages, publisher, yearOfPublishing, rating, tags } = findBook;   
+  const { bookName, author, image, review, totalPages, publisher, yearOfPublishing, rating, tags} = findBook;
 
   return (
     <section className="container mx-auto px-4 py-12">
@@ -29,11 +27,12 @@ const BookDetails = () => {
           </div>
           <div className="flex flex-wrap items-center gap-3 border-y border-dashed border-gray-300 py-5">
             <span className="font-semibold text-[#131313]">{tags[0]}</span>
-            <span className="flex items-center gap-2 text-gray-500">
-            </span>
+            <span className="flex items-center gap-2 text-gray-500"></span>
           </div>
-          <p className="text-gray-600"><span className="font-bold text-[#131313]">Review:</span> {review}</p>
-          
+          <p className="text-gray-600">
+            <span className="font-bold text-[#131313]">Review:</span> {review}
+          </p>
+
           <div className="flex flex-wrap items-center gap-3">
             <span className="font-bold text-[#131313]">Tag</span>
             {tags.map((tag) => (
@@ -48,42 +47,26 @@ const BookDetails = () => {
           <div className="grid gap-3 text-gray-600">
             <p>
               <span className="font-semibold text-[#131313]">Number of Pages:</span>
-              <span className="ml-[6%]">
-              {totalPages}
-              </span>
+              <span className="ml-[6%]">{totalPages}</span>
             </p>
             <p>
               <span className="font-semibold text-[#131313]">Publisher:</span>
-              <span className="ml-[11%]">
-              {publisher}
-              </span>
+              <span className="ml-[11%]">{publisher}</span>
             </p>
             <p>
               <span className="font-semibold text-[#131313]">Year of Publishing:</span>
-              <span className="ml-[5%]">
-              {yearOfPublishing}
-              </span>
+              <span className="ml-[5%]">{yearOfPublishing}</span>
             </p>
             <p>
-              <span className="font-semibold text-[#131313]">Rating:</span> 
-              <span className="ml-[13%]">
-              {rating}
-              </span>
+              <span className="font-semibold text-[#131313]">Rating:</span>
+              <span className="ml-[13%]">{rating}</span>
             </p>
           </div>
           <div className="flex gap-4">
-            <Link
-              to="/books"
-              className="btn border bg-white"
-            >
-             Mark as Read
-            </Link>
-            <Link
-              to="/books"
-              className="btn btn-info text-white"
-            >
-             Add to Wishlist
-            </Link>
+            <button className="btn border bg-white" onClick={() => handleMarkAsRead(findBook)}>
+              Mark as Read
+            </button>
+            <button className="btn btn-info text-white"  onClick={() => handleWishList(findBook)}>Add to Wishlist</button>
           </div>
         </div>
       </div>
