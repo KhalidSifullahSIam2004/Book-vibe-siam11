@@ -9,17 +9,17 @@ const Books = () => {
   const booksData = use(booksDataPromise);
 
   return (
-    <div className="container mx-auto">
+    <div className="container mx-auto px-4">
       <h2 className="text-4xl font-bold text-center mb-6">Books</h2>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-32 shadow-sm ">
+      <div className="grid grid-cols-1 justify-items-center gap-12 shadow-sm md:grid-cols-2 lg:grid-cols-3">
         {booksData.map((singleBookData) => (
           <Link
             to={`/books/${singleBookData.bookId}`}
             key={singleBookData.bookId}
-            className="block h-full rounded-2xl"
+            className="block h-full w-full max-w-96 rounded-2xl"
           >
-            <div className="card h-full bg-base-100 w-96 border border-gray-100 shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
+            <div className="card h-full w-full bg-base-100 border border-gray-100 shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
               <figure className="p-6 bg-[#F3F3F3] rounded-2xl m-6">
                 <img
                   src={singleBookData.image}

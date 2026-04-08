@@ -13,10 +13,10 @@ const Footer = () => {
   return (
     <footer className="mt-20 border-t border-gray-200 bg-[#f7f8f3]">
       <div className="container mx-auto px-4 py-12">
-        <div className="grid gap-10 md:grid-cols-3 md:items-start">
+        <div className="grid justify-items-center gap-10 text-center md:grid-cols-3 md:items-start md:justify-items-start md:text-left">
           <div className="space-y-3">
             <h2 className="text-3xl font-bold text-gray-900">Book Vibe</h2>
-            <p className="max-w-sm text-base leading-7 text-gray-600">
+            <p className="mx-auto max-w-sm text-base leading-7 text-gray-600 md:mx-0">
               Discover good books, organize your reading list, and keep your
               bookshelf feeling fresh.
             </p>
@@ -24,7 +24,7 @@ const Footer = () => {
 
           <div>
             <h3 className="text-lg font-semibold text-gray-900">Quick Links</h3>
-            <div className="mt-4 flex flex-col gap-3">
+            <div className="mt-4 flex flex-col items-center gap-3 md:items-start">
               {quickLinks.map((link) => (
                 <Link
                   key={link.to}
