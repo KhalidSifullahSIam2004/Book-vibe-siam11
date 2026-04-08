@@ -63,10 +63,10 @@ const BookDetails = () => {
             </p>
           </div>
           <div className="flex gap-4">
-            <button className="btn border bg-white" onClick={() => handleMarkAsRead(findBook)}>
+            <button className="btn border bg-white hover:scale-95 transition-all duration-700" onClick={() => handleMarkAsRead(findBook)}>
               Mark as Read
             </button>
-            <button className="btn btn-info text-white"  onClick={() => handleWishList(findBook)}>Add to Wishlist</button>
+            <button className="btn btn-info text-white hover:scale-95 transition-all duration-700"  onClick={() => handleWishList(findBook)}>Add to Wishlist</button>
           </div>
         </div>
       </div>

@@ -1,5 +1,6 @@
 import React, { use } from 'react';
 import { BookContext } from '../../../Context/Context';
+import { Link } from 'react-router';
 
 const WishList = () => {
 
@@ -64,7 +65,7 @@ const WishList = () => {
                                   <p className="text-orange-400 bg-orange-50 text-center p-1 rounded-full">
                                   Rating:  {wishBook.rating}
                                   </p>
-                                  <button className='btn bg-green-500 text-white rounded-full'>View Details</button>
+                                  <Link className='btn bg-green-500 text-white rounded-full' to={`/books/${wishBook.bookId}`} key={wishBook.bookId}>View Details</Link>
                                 </div>
                               </div>
                             </div>

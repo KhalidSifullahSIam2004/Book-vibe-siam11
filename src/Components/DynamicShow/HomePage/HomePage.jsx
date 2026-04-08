@@ -1,6 +1,7 @@
 import React from "react";
 import bannerImage from "../../../assets/banner.png";
 import Books from "../Books/Books";
+import { Link } from "react-router";
 
 const HomePage = () => {
   return (
@@ -12,9 +13,9 @@ const HomePage = () => {
           <h1 className="text-5xl font-bold">
             Books to freshen up <br /> your bookshelf
           </h1>
-          <button className="btn bg-green-500 text-white w-52 rounded-lg py-6">
+          <Link className="btn bg-green-500 text-white w-52 rounded-lg py-6 hover:bg-green-800 hover:scale-90 hover:-translate-y-2 transition-all duration-1000" to={'/listedbooks'}>
             View The List
-          </button>
+          </Link>
         </div>
       </div>
     </div>
