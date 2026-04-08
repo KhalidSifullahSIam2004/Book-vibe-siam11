@@ -1,19 +1,39 @@
 import React, { use } from 'react';
 import { BookContext } from '../../../Context/Context';
 import { Link } from 'react-router';
+import { CiLocationOn } from "react-icons/ci";
+import { FaUserFriends } from "react-icons/fa";
+import { MdOutlineContactPage } from "react-icons/md";
+import { Sorting } from '../../../Context/SortingContext';
 
 const WishList = () => {
 
     const {wishList} = use(BookContext);
+    const filteredWishList = [...wishList];
+
+    const {sortingType} = use(Sorting);
+
+    if (sortingType === 'Pages-Low-To-High') {
+      filteredWishList.sort((a, b) => a.totalPages - b.totalPages);
+    }
+    else if(sortingType === 'Pages-High-To-Low'){
+      filteredWishList.sort((a, b) => b.totalPages - a.totalPages);
+    }
+     else if (sortingType === 'rating-Low-To-High') {
+      filteredWishList.sort((a, b) => a.rating - b.rating);
+    }
+     else if (sortingType === 'rating-High-To-Low') {
+      filteredWishList.sort((a, b) => b.rating - a.rating);
+    }
     
     return (<div>
-            {wishList.length === 0 ? 
+            {filteredWishList.length === 0 ? 
             <div className='h-[50vh] bg-gray-100 flex justify-center items-center'>
               <h2 className='font-bold text-3xl'>No wish list data found</h2>
             </div>
             :
-                wishList.map(wishBook => 
-                      <div className="flex gap-6 bg-base-100 border border-gray-100 shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
+                filteredWishList.map(wishBook => 
+                      <div key={wishBook.bookId} className="flex gap-6 bg-base-100 border border-gray-100 shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
                               <figure className="p-6 bg-[#F3F3F3] rounded-2xl m-6">
                                 <img
                                   src={wishBook.image}
@@ -33,7 +53,7 @@ const WishList = () => {
                                   By : {wishBook.author}
                                 </p>
                 
-                                  <div  className="flex justify-around items-center gap-2">
+                                  <div  className="flex flex-wrap items-center gap-3">
                                   <p className='font-bold'>Tag</p>
                               <div className="mt-6 grid min-h-14 grid-cols-2 gap-2 items-start">
                                 {wishBook.tags.map((tag, index) => (
@@ -46,13 +66,22 @@ const WishList = () => {
                                 ))}
 
                                 </div>
-                                <p className='mb-3'>Year Of Publishing: {wishBook.yearOfPublishing}</p>
+                                <p className='mb-3 flex items-center gap-2 text-gray-500 font-light'>
+                                  <CiLocationOn className='text-lg' />
+                                  <span>Year Of Publishing: {wishBook.yearOfPublishing}</span>
+                                </p>
                               </div>
 
                                
-                               <div className='flex gap-4'>
-                              <p className='text-gray-500 font-light'>Publisher: {wishBook.publisher}</p>
-                              <p className='text-gray-500 font-light'>page: {wishBook.totalPages}</p>
+                               <div className='flex flex-wrap gap-4'>
+                              <p className='flex items-center gap-2 text-gray-500 font-light'>
+                                <FaUserFriends className='text-base' />
+                                <span>Publisher: {wishBook.publisher}</span>
+                              </p>
+                              <p className='flex items-center gap-2 text-gray-500 font-light'>
+                                <MdOutlineContactPage className='text-lg' />
+                                <span>Page: {wishBook.totalPages}</span>
+                              </p>
                                </div>
                 
                               <div className="card-body pt-4">

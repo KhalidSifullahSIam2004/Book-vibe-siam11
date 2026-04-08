@@ -1,20 +1,40 @@
 import React, { use } from 'react';
 import { BookContext } from '../../../Context/Context';
 import { Link } from 'react-router';
-
+import { CiLocationOn } from "react-icons/ci";
+import { FaUserFriends } from "react-icons/fa";
+import { MdOutlineContactPage } from "react-icons/md";
+import { Sorting } from '../../../Context/SortingContext';
 
 const ReadList = () => {
 
     const {storedBooks} = use(BookContext);
+    const filteredReadList = [...storedBooks];
+
+    const {sortingType} = use(Sorting);
+
+    if (sortingType === 'Pages-Low-To-High') {
+      filteredReadList.sort((a, b) => a.totalPages - b.totalPages);
+    }
+    else if(sortingType === 'Pages-High-To-Low'){
+      filteredReadList.sort((a, b) => b.totalPages - a.totalPages);
+    }
+     else if (sortingType === 'Rating-Low-To-High') {
+      filteredReadList.sort((a, b) => a.rating - b.rating);
+    }
+     else if (sortingType === 'Rating-High-To-Low') {
+      filteredReadList.sort((a, b) => a.rating - b.rating);
+    }
+
     return (
         <div>
-            {storedBooks.length === 0 ? 
+            {filteredReadList.length === 0 ? 
             <div className='h-[50vh] bg-gray-100 flex justify-center items-center'>
               <h2 className='font-bold text-3xl'>No read list data found</h2>
             </div>
             :
-                storedBooks.map(storedBook => 
-                      <div className="flex gap-6 bg-base-100 border border-gray-100 shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
+                filteredReadList.map(storedBook => 
+                      <div key={storedBook.bookId} className="flex gap-6 bg-base-100 border border-gray-100 shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
                               <figure className="p-6 bg-[#F3F3F3] rounded-2xl m-6">
                                 <img
                                   src={storedBook.image}
@@ -34,7 +54,7 @@ const ReadList = () => {
                                   By : {storedBook.author}
                                 </p>
                 
-                                  <div  className="flex justify-around items-center gap-2">
+                                  <div  className="flex flex-wrap items-center gap-3">
                                   <p className='font-bold'>Tag</p>
                               <div className="mt-6 grid min-h-14 grid-cols-2 gap-2 items-start">
                                 {storedBook.tags.map((tag, index) => (
@@ -47,13 +67,22 @@ const ReadList = () => {
                                 ))}
 
                                 </div>
-                                <p className='mb-3'>Year Of Publishing: {storedBook.yearOfPublishing}</p>
+                                <p className='mb-3 flex items-center gap-2 text-gray-500 font-light'>
+                                  <CiLocationOn className='text-lg' />
+                                  <span>Year Of Publishing: {storedBook.yearOfPublishing}</span>
+                                </p>
                               </div>
 
                                
-                               <div className='flex gap-4'>
-                              <p className='text-gray-500 font-light'>Publisher: {storedBook.publisher}</p>
-                              <p className='text-gray-500 font-light'>page: {storedBook.totalPages}</p>
+                               <div className='flex flex-wrap gap-4'>
+                              <p className='flex items-center gap-2 text-gray-500 font-light'>
+                                <FaUserFriends className='text-base' />
+                                <span>Publisher: {storedBook.publisher}</span>
+                              </p>
+                              <p className='flex items-center gap-2 text-gray-500 font-light'>
+                                <MdOutlineContactPage className='text-lg' />
+                                <span>Page: {storedBook.totalPages}</span>
+                              </p>
                                </div>
                 
                               <div className="card-body pt-4">
@@ -66,7 +95,7 @@ const ReadList = () => {
                                   <p className="text-orange-400 bg-orange-50 text-center p-1 rounded-full">
                                   Rating:  {storedBook.rating}
                                   </p>
-                                  <Link className='btn bg-green-500 text-white rounded-full' to={`/books/${storedBook.bookId}`} key={storedBook.bookId}>View Details</Link>
+                                  <Link className='btn bg-green-500 text-white rounded-full' to={`/books/${storedBook.bookId}`}>View Details</Link>
                                 </div>
                               </div>
                             </div>
