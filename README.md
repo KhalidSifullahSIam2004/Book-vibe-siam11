@@ -1,33 +1,21 @@
 # Book Vibe
 
-Book Vibe is a responsive book discovery and reading-list web app built with React and Vite. It lets users browse a curated set of books, view detailed book information, add books to a read list or wish list, sort saved books, and visualize reading progress with a chart-based page summary.
+Book Vibe is a client-side reading tracker built with React and Vite. Users can browse a seeded catalog, open detailed book pages, save books to a read list or wish list, remove saved books, sort saved entries, and view a custom Recharts-based pages chart.
 
-## Overview
+## Current App Behavior
 
-The project focuses on a clean client-side reading experience:
-
-- Browse a catalog of books loaded from local JSON data
-- Open a dedicated details page for each book
-- Save books to a read list or a wish list
-- Prevent duplicate entries with toast-based feedback
-- Sort saved books by page count or rating
-- View a pages-to-read chart using Recharts
-- Keep reading data persisted in `localStorage`
-
-## Features
-
-- Responsive layout with reusable navbar, footer, and routed pages
-- Book detail screen with publisher, year, tags, rating, and review
-- Read list and wish list state shared through React Context
-- Persistent client-side storage for catalog, read list, and wish list
-- Sorting controls for:
-  - Pages, low to high
-  - Pages, high to low
-  - Rating, low to high
-  - Rating, high to low
-- Toast notifications for success and duplicate-state validation
-- Basic sign-in and sign-up UI screens
-- Pages-to-read analytics view powered by `recharts`
+- Shows a home hero section and a reusable book grid
+- Loads a seeded catalog from `public/booksData.json`
+- Caches catalog data in `localStorage`
+- Opens a dedicated details page for each book
+- Adds books to a read list
+- Adds books to a wish list unless the book is already in the read list
+- Prevents duplicate entries with toast messages
+- Removes books from both read list and wish list from the listed-books cards
+- Sorts both saved tabs by page count or rating
+- Includes a demo sign-in screen with hardcoded credentials
+- Includes a sign-up UI screen
+- Displays a custom shaped bar chart on the pages-to-read route
 
 ## Tech Stack
 
@@ -39,85 +27,102 @@ The project focuses on a clean client-side reading experience:
 - React Toastify
 - React Tabs
 - Recharts
+- React Icons
 - ESLint
+
+## Routes
+
+| Route | Purpose |
+| --- | --- |
+| `/` | Home page with hero banner and the book grid |
+| `/books` | Full catalog view |
+| `/books/:id` | Book details page with read and wishlist actions |
+| `/listedbooks` | Tabbed saved-books screen for read list and wish list |
+| `/pages-to-read` | Recharts page summary using featured books from the dataset |
+| `/signin` | Demo sign-in form |
+| `/signup` | Sign-up UI form |
+
+## Data Flow
+
+### Catalog
+
+- The app seeds book data from `public/booksData.json`
+- `getBooksData()` caches the catalog under `book-vibe-books`
+- The current dataset contains 9 books
+
+### Saved Lists
+
+- Read list data is stored under `book-vibe-read-list`
+- Wish list data is stored under `book-vibe-wish-list`
+- Shared list actions live in `src/Context/Context.jsx`
+- Remove actions are available for both saved lists
+
+### Sorting
+
+- Sorting state is shared through `src/Context/SortingContext.jsx`
+- Available sort keys:
+  - `pages-asc`
+  - `pages-desc`
+  - `rating-asc`
+  - `rating-desc`
+
+## UI Notes
+
+- The navbar includes a mobile menu toggle
+- The footer includes quick links and a CTA back to saved books
+- Toast notifications are mounted globally in `src/main.jsx`
+- The pages-to-read chart currently uses a fixed featured set of book IDs: `1, 2, 3, 8, 5`
+- The sign-up page is currently presentation-only and does not submit data
+- The sign-in page validates against static demo credentials and redirects to `/` on success
+
+## Demo Credentials
+
+- Email: `reader@bookvibe.com`
+- Password: `123456`
 
 ## Project Structure
 
 ```text
 Book-Vibe/
-├─ public/
-│  └─ booksData.json
-├─ src/
-│  ├─ Components/
-│  │  ├─ AllTimeShow/
-│  │  │  ├─ Footer/
-│  │  │  ├─ MainLayout/
-│  │  │  └─ Navbar/
-│  │  ├─ DynamicShow/
-│  │  │  ├─ BookDetails/
-│  │  │  ├─ Books/
-│  │  │  ├─ ErrorPage/
-│  │  │  ├─ HomePage/
-│  │  │  ├─ ListedBooks/
-│  │  │  ├─ PagesToRead/
-│  │  │  ├─ ReadList/
-│  │  │  ├─ SignIn/
-│  │  │  ├─ SignUIp/
-│  │  │  └─ WishList/
-│  │  └─ Utils/
-│  │     ├─ Reachart/
-│  │     ├─ bookSorting.js
-│  │     └─ localDB.js
-│  ├─ Context/
-│  │  ├─ Context.jsx
-│  │  └─ SortingContext.jsx
-│  ├─ Routes/
-│  │  └─ Routes.jsx
-│  ├─ assets/
-│  ├─ index.css
-│  └─ main.jsx
-├─ package.json
-└─ README.md
+|-- public/
+|   |-- booksData.json
+|   |-- favicon.svg
+|   `-- icons.svg
+|-- src/
+|   |-- assets/
+|   |-- Components/
+|   |   |-- AllTimeShow/
+|   |   |   |-- Footer/
+|   |   |   |-- MainLayout/
+|   |   |   `-- Navbar/
+|   |   |-- DynamicShow/
+|   |   |   |-- BookDetails/
+|   |   |   |-- Books/
+|   |   |   |-- ErrorPage/
+|   |   |   |-- HomePage/
+|   |   |   |-- ListedBooks/
+|   |   |   |-- PagesToRead/
+|   |   |   |-- ReadList/
+|   |   |   |-- SignIn/
+|   |   |   |-- SignUIp/
+|   |   |   `-- WishList/
+|   |   `-- Utils/
+|   |       |-- Reachart/
+|   |       |-- bookSorting.js
+|   |       `-- localDB.js
+|   |-- Context/
+|   |   |-- Context.jsx
+|   |   `-- SortingContext.jsx
+|   |-- Routes/
+|   |   `-- Routes.jsx
+|   |-- index.css
+|   `-- main.jsx
+|-- eslint.config.js
+|-- index.html
+|-- package.json
+|-- vite.config.js
+`-- README.md
 ```
-
-## Routing
-
-The app uses `createBrowserRouter` with the following routes:
-
-| Route | Purpose |
-| --- | --- |
-| `/` | Home page with hero section and book grid |
-| `/books` | Full book listing |
-| `/books/:id` | Book details page |
-| `/listedbooks` | Read list and wish list tabs |
-| `/pages-to-read` | Reading progress chart |
-| `/signin` | Demo sign-in page |
-| `/signup` | Sign-up page |
-
-## Data and State Management
-
-### Book Catalog
-
-- Initial book data is loaded from [`public/booksData.json`](./public/booksData.json)
-- The catalog is cached in `localStorage` under `book-vibe-books`
-
-### Reading Lists
-
-- Read list is stored under `book-vibe-read-list`
-- Wish list is stored under `book-vibe-wish-list`
-- Shared state is managed through [`src/Context/Context.jsx`](./src/Context/Context.jsx)
-
-### Sorting
-
-- Sorting state is managed through [`src/Context/SortingContext.jsx`](./src/Context/SortingContext.jsx)
-- Shared sort options and comparators live in [`src/Components/Utils/bookSorting.js`](./src/Components/Utils/bookSorting.js)
-
-## Demo Credentials
-
-The current sign-in screen uses a static demo login:
-
-- Email: `reader@bookvibe.com`
-- Password: `123456`
 
 ## Getting Started
 
@@ -126,62 +131,54 @@ The current sign-in screen uses a static demo login:
 - Node.js
 - npm
 
-### Installation
+### Install
 
 ```bash
 npm install
 ```
 
-### Run the Development Server
+### Start Development Server
 
 ```bash
 npm run dev
 ```
 
-Open the local URL shown by Vite in your terminal.
-
-### Build for Production
+### Build Production Bundle
 
 ```bash
 npm run build
 ```
 
-### Preview the Production Build
+### Preview Production Build
 
 ```bash
 npm run preview
 ```
 
-### Lint the Project
+### Run Lint
 
 ```bash
 npm run lint
 ```
 
-## Key Implementation Notes
+## Important Files
 
-- The app is fully client-side and does not require a backend
-- Book actions are persisted automatically through `localStorage`
-- Duplicate prevention is enforced before adding a book to a saved list
-- The pages-to-read screen visualizes selected books by total page count
+- `src/Routes/Routes.jsx`: router setup
+- `src/Context/Context.jsx`: read list and wish list state/actions
+- `src/Context/SortingContext.jsx`: shared sorting state
+- `src/Components/Utils/localDB.js`: localStorage helpers and catalog cache
+- `src/Components/DynamicShow/ListedBooks/ListedBooks.jsx`: tabs and sorting dropdown
+- `src/Components/DynamicShow/ReadList/ReadList.jsx`: read list cards and remove action
+- `src/Components/DynamicShow/WishList/WishList.jsx`: wish list cards and remove action
+- `src/Components/DynamicShow/PagesToRead/PagesToRead.jsx`: featured chart data mapping
 
-## Possible Improvements
+## Known Limitations
 
-- Add real authentication and protected routes
-- Replace static sign-up form with validation and submission flow
-- Add search and category filters for the book catalog
-- Add unit and integration tests
-- Introduce API-backed data instead of static JSON
-
-## Scripts
-
-| Command | Description |
-| --- | --- |
-| `npm run dev` | Start the Vite development server |
-| `npm run build` | Create the production build |
-| `npm run preview` | Preview the built app locally |
-| `npm run lint` | Run ESLint |
+- No backend or real authentication
+- Sign-up form has no submit logic
+- Pages-to-read does not visualize the user's saved books; it uses fixed featured books from the seed data
+- There are no automated tests in the project yet
 
 ## License
 
-This project is currently unlicensed for public reuse unless you add a license file.
+This project does not currently include a license file.

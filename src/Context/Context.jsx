@@ -54,8 +54,32 @@ const Context = ({ children }) => {
     }
   };
 
+  const handleRemoveFromReadList = (bookId) => {
+    const bookToRemove = storedBooks.find((bookData) => bookData.bookId === bookId);
+
+    if (!bookToRemove) {
+      toast.error("The book was not found in read list");
+      return;
+    }
+
+    setStoredBooks(storedBooks.filter((bookData) => bookData.bookId !== bookId));
+    toast.success(`${bookToRemove.bookName} removed from read list`);
+  };
+
+  const handleRemoveFromWishList = (bookId) => {
+    const bookToRemove = wishList.find((bookData) => bookData.bookId === bookId);
+
+    if (!bookToRemove) {
+      toast.error("The book was not found in wish list");
+      return;
+    }
+
+    setWishList(wishList.filter((bookData) => bookData.bookId !== bookId));
+    toast.success(`${bookToRemove.bookName} removed from wish list`);
+  };
+
   return (
-    <BookContext value={{storedBooks,setStoredBooks, handleMarkAsRead, wishList, setWishList, handleWishList}}>
+    <BookContext value={{storedBooks,setStoredBooks, handleMarkAsRead, wishList, setWishList, handleWishList, handleRemoveFromReadList, handleRemoveFromWishList}}>
       {children}
     </BookContext>
   );

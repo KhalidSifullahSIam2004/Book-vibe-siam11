@@ -9,7 +9,7 @@ import { sortBooks } from '../../Utils/bookSorting';
 
 const ReadList = () => {
 
-    const {storedBooks} = use(BookContext);
+    const {storedBooks, handleRemoveFromReadList} = use(BookContext);
     const {sortingType} = use(Sorting);
     const filteredReadList = sortBooks(storedBooks, sortingType);
 
@@ -75,14 +75,25 @@ const ReadList = () => {
                               <div className="card-body pt-4">
                                 
                               
-                                <div className="card-actions justify-between border-t border-dashed border-gray-300 pt-4">
-                                  <p className="text-blue-600 bg-blue-100 p-1 text-center rounded-full">
-                                    {storedBook.category}
-                                  </p>
-                                  <p className="text-orange-400 bg-orange-50 text-center p-1 rounded-full">
-                                  Rating:  {storedBook.rating}
-                                  </p>
-                                  <Link className='btn bg-green-500 text-white rounded-full' to={`/books/${storedBook.bookId}`}>View Details</Link>
+                                <div className="card-actions flex-wrap justify-between gap-3 border-t border-dashed border-gray-300 pt-4">
+                                  <div className='flex flex-wrap items-center gap-3'>
+                                    <p className="text-blue-600 bg-blue-100 py-2 px-4 text-center rounded-full">
+                                      {storedBook.category}
+                                    </p>
+                                    <p className="text-orange-400 bg-orange-50 text-center py-2 px-4 rounded-full">
+                                    Rating:  {storedBook.rating}
+                                    </p>
+                                  </div>
+                                  <div className='flex flex-wrap items-center gap-3'>
+                                    <Link className='btn bg-green-500 text-white rounded-full' to={`/books/${storedBook.bookId}`}>View Details</Link>
+                                    <button
+                                      type="button"
+                                      className='btn bg-red-500 text-white rounded-full border-none hover:bg-red-600'
+                                      onClick={() => handleRemoveFromReadList(storedBook.bookId)}
+                                    >
+                                      Remove
+                                    </button>
+                                  </div>
                                 </div>
                               </div>
                             </div>
