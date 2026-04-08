@@ -13,16 +13,16 @@ const WishList = () => {
 
     const {sortingType} = use(Sorting);
 
-    if (sortingType === 'Pages-Low-To-High') {
+    if (sortingType === 'Pages Low To High') {
       filteredWishList.sort((a, b) => a.totalPages - b.totalPages);
     }
-    else if(sortingType === 'Pages-High-To-Low'){
+    else if(sortingType === 'Pages High To Low'){
       filteredWishList.sort((a, b) => b.totalPages - a.totalPages);
     }
-     else if (sortingType === 'rating-Low-To-High') {
+     else if (sortingType === 'Rating Low To High') {
       filteredWishList.sort((a, b) => a.rating - b.rating);
     }
-     else if (sortingType === 'rating-High-To-Low') {
+     else if (sortingType === 'Rating High To Low') {
       filteredWishList.sort((a, b) => b.rating - a.rating);
     }
     

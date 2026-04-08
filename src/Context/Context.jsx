@@ -1,11 +1,25 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import {
+  getStoredReadList,
+  getStoredWishList,
+  setStoredReadList,
+  setStoredWishList,
+} from "../Components/Utils/localDB";
 
 export const BookContext = createContext();
 
 const Context = ({ children }) => {
-  const [storedBooks, setStoredBooks] = useState([]);
-  const [wishList, setWishList] = useState([]);
+  const [storedBooks, setStoredBooks] = useState(() => getStoredReadList());
+  const [wishList, setWishList] = useState(() => getStoredWishList());
+
+  useEffect(() => {
+    setStoredReadList(storedBooks);
+  }, [storedBooks]);
+
+  useEffect(() => {
+    setStoredWishList(wishList);
+  }, [wishList]);
 
   const handleMarkAsRead = (book) => {
 

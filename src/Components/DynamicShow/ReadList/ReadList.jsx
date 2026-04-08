@@ -13,16 +13,16 @@ const ReadList = () => {
 
     const {sortingType} = use(Sorting);
 
-    if (sortingType === 'Pages-Low-To-High') {
+    if (sortingType === 'Pages Low To High') {
       filteredReadList.sort((a, b) => a.totalPages - b.totalPages);
     }
-    else if(sortingType === 'Pages-High-To-Low'){
+    else if(sortingType === 'Pages High To Low'){
       filteredReadList.sort((a, b) => b.totalPages - a.totalPages);
     }
-     else if (sortingType === 'Rating-Low-To-High') {
+     else if (sortingType === 'Rating Low To High') {
       filteredReadList.sort((a, b) => a.rating - b.rating);
     }
-     else if (sortingType === 'Rating-High-To-Low') {
+     else if (sortingType === 'Rating High To Low') {
       filteredReadList.sort((a, b) => a.rating - b.rating);
     }
 

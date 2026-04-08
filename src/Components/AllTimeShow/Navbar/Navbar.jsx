@@ -48,6 +48,16 @@ const Navbar = () => {
                   Listed Books
                 </NavLink>
               </li>
+              <li className="font-semibold">
+                <NavLink
+                  to="/pages-to-read"
+                  className={({ isActive }) =>
+                    isActive && "text-green-500 border border-green-500"
+                  }
+                >
+                  Pages to Read
+                </NavLink>
+              </li>
               
             </ul>
           </div>
@@ -75,11 +85,31 @@ const Navbar = () => {
                 Listed Books
               </NavLink>
             </li>
+            <li className="font-semibold mr-4">
+              <NavLink
+                to="/pages-to-read"
+                className={({ isActive }) =>
+                  isActive && "text-green-500 border border-green-500"
+                }
+              >
+                Pages to Read
+              </NavLink>
+            </li>
           </ul>
         </div>
         <div className="navbar-end gap-4">
-          <button className="btn bg-green-500 text-white hover:scale-90 transition-all duration-1000">Sign In</button>
-          <button className="btn btn-info text-white hover:scale-90 transition-all duration-1000">Sign Up</button>
+          <NavLink
+            to="/signin"
+            className="btn bg-green-500 text-white hover:scale-90 transition-all duration-1000"
+          >
+            Sign In
+          </NavLink>
+          <NavLink
+            to="/signup"
+            className="btn btn-info text-white hover:scale-90 transition-all duration-1000"
+          >
+            Sign Up
+          </NavLink>
         </div>
       </div>
     </nav>

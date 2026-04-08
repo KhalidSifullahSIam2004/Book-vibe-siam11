@@ -6,10 +6,10 @@ import WishList from "../WishList/WishList";
 import { Sorting } from "../../../Context/SortingContext";
 
 const sortOptions = [
-  { value: "Pages-Low-To-High", label: "Pages(Low to High)" },
-  { value: "Pages-High-To-Low", label: "Pages(High to Low)" },
-  { value: "rating-Low-To-High", label: "Rating(Low to High)" },
-  { value: "rating-High-To-Low", label: "Rating(High to Low)" },
+  { value: "Pages (Low To High)", label: "Pages(Low to High)" },
+  { value: "Pages (High To Low)", label: "Pages(High to Low)" },
+  { value: "Rating (Low To High)", label: "Rating(Low to High)" },
+  { value: "Rating (High To Low)", label: "Rating(High to Low)" },
 ];
 
 const ListedBooks = () => {
@@ -22,7 +22,7 @@ const ListedBooks = () => {
         Books
       </h1>
 
-      <div className="flex justify-center mt-5 mb-20">
+      <div className="flex justify-center mt-5 mb-30">
         <div className="dropdown dropdown-start">
           <div tabIndex={0} role="button" className="btn m-1 text-green-500 bg-green-100">
             Sort by: {sortingType} ⬇️
