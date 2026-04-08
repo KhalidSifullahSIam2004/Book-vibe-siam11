@@ -5,26 +5,13 @@ import { CiLocationOn } from "react-icons/ci";
 import { FaUserFriends } from "react-icons/fa";
 import { MdOutlineContactPage } from "react-icons/md";
 import { Sorting } from '../../../Context/SortingContext';
+import { sortBooks } from '../../Utils/bookSorting';
 
 const WishList = () => {
 
     const {wishList} = use(BookContext);
-    const filteredWishList = [...wishList];
-
     const {sortingType} = use(Sorting);
-
-    if (sortingType === 'Pages Low To High') {
-      filteredWishList.sort((a, b) => a.totalPages - b.totalPages);
-    }
-    else if(sortingType === 'Pages High To Low'){
-      filteredWishList.sort((a, b) => b.totalPages - a.totalPages);
-    }
-     else if (sortingType === 'Rating Low To High') {
-      filteredWishList.sort((a, b) => a.rating - b.rating);
-    }
-     else if (sortingType === 'Rating High To Low') {
-      filteredWishList.sort((a, b) => b.rating - a.rating);
-    }
+    const filteredWishList = sortBooks(wishList, sortingType);
     
     return (<div>
             {filteredWishList.length === 0 ? 

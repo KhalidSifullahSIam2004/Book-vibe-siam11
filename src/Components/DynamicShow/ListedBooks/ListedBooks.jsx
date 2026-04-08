@@ -4,17 +4,11 @@ import "react-tabs/style/react-tabs.css";
 import ReadList from "../ReadList/ReadList";
 import WishList from "../WishList/WishList";
 import { Sorting } from "../../../Context/SortingContext";
-
-const sortOptions = [
-  { value: "Pages (Low To High)", label: "Pages(Low to High)" },
-  { value: "Pages (High To Low)", label: "Pages(High to Low)" },
-  { value: "Rating (Low To High)", label: "Rating(Low to High)" },
-  { value: "Rating (High To Low)", label: "Rating(High to Low)" },
-];
+import { getSortLabel, SORT_OPTIONS } from "../../Utils/bookSorting";
 
 const ListedBooks = () => {
-  
   const {sortingType, setSortingType} = use(Sorting);
+  const selectedSortLabel = getSortLabel(sortingType);
 
   return (
     <div className="container mx-auto">
@@ -25,19 +19,19 @@ const ListedBooks = () => {
       <div className="flex justify-center mt-5 mb-30">
         <div className="dropdown dropdown-start">
           <div tabIndex={0} role="button" className="btn m-1 text-green-500 bg-green-100">
-            Sort by: {sortingType} ⬇️
+            {selectedSortLabel} v
           </div>
           <ul
-            tabIndex="-1"
+            tabIndex={-1}
             className="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm"
           >
-            {sortOptions.map((option) => (
+            {SORT_OPTIONS.map((option) => (
               <li key={option.value}>
                 <button
                   type="button"
                   onClick={() => setSortingType(option.value)}
                   className={
-                    sortingType === option.label
+                    sortingType === option.value
                       ? "bg-green-100 text-green-500"
                       : ""
                   }
@@ -55,14 +49,12 @@ const ListedBooks = () => {
           <Tab>Wish Books</Tab>
         </TabList>
 
-        {/* read */}
         <TabPanel>
-          <ReadList sortingType={sortingType} />
+          <ReadList />
         </TabPanel>
 
-        {/* wish */}
         <TabPanel>
-          <WishList sortingType={sortingType} />
+          <WishList />
         </TabPanel>
       </Tabs>
     </div>
