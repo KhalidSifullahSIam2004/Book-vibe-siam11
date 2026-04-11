@@ -31,8 +31,9 @@ Book Vibe is a client-side reading tracker built with React and Vite. Users can 
 - ESLint
 
 ## 🚀 Live Demo
-https://book-vibe-siam11.netlify.app
-Repository:https://github.com/Khalid-Sifullah-Siam/Book-vibe-siam11
+Live-site: https://book-vibe-siam11.netlify.app
+
+Repository: https://github.com/Khalid-Sifullah-Siam/Book-vibe-siam11
 ## Routes
 
 | Route | Purpose |
